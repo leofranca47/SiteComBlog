@@ -9,15 +9,15 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title','subtitle', 'content','cover'];
+    protected $fillable = ['title','subtitle', 'content','cover', 'uri', 'author'];
 
     public function getCreatedAtAttribute($date){
         return date('d/m/Y H:i', strtotime($date) );
     }
 
-    public function verifyPostsExist($titulo)
+    public function verifyPostsExist($title)
     {
-        if ($post = self::where('titulo', $titulo)->first()) {
+        if ($post = self::where('title', $title)->first()) {
             return $post->id;
         }
 
@@ -28,7 +28,7 @@ class Post extends Model
     {
         $results = $this->where(function ($query) use ($filter) {
             if ($filter) {
-                $query->where('titulo', 'LIKE', "%{$filter}%");
+                $query->where('title', 'LIKE', "%{$filter}%");
             }
         })
             ->paginate();
@@ -36,7 +36,7 @@ class Post extends Model
         return $results;
     }
 
-    public function getTituloAttribute($value)
+    public function gettitleAttribute($value)
     {
         return ucfirst($value);
     }

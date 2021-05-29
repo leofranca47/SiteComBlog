@@ -6,6 +6,7 @@ use App\Http\Requests\CmsRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use stdClass;
 
 class CmsController extends Controller
 {
@@ -29,7 +30,7 @@ class CmsController extends Controller
 
     public function store(CmsRequest $request)
     {
-        $data = $request->only('title', 'artigo');
+        $data = $request->only('title', 'subtitle', 'content');
 
         if ($id = $this->posts->verifyPostsExist($request->title)) {
             return $this->update($request, $id);
@@ -40,9 +41,18 @@ class CmsController extends Controller
             $imagePath = $request->cover->storeAs('post', $namefile);
 
             $data['cover'] = $imagePath;
+            $data['author'] = auth()->user()->id;
         }
+        $data['uri'] = str_slug($request->title);
 
-        $posts = $this->posts::create($data);
+        $posts = $this->posts::create([
+            'title' => $data['title'],
+            'subtitle' => $data['subtitle'],
+            'content' => $data['content'],
+            'uri' => $data['uri'],
+            'cover' => $data['cover'],
+            'author' => $data['author']
+        ]);
 
         return redirect()->route('cms.index');
     }
