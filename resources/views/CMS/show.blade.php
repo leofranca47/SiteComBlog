@@ -25,7 +25,7 @@
                     <div class="col-12">
                         <div class="blog-text">
                             <span class="posted_on">{{$post->created_at}}</span>
-                            <span class="comment"><a href="">21<i class="icon-speech-bubble"></i></a></span>
+                            {{-- <span class="comment"><a href="">21<i class="icon-speech-bubble"></i></a></span> --}}
                             <p>{!!$post->content!!}</p>
                         </div>
                     </div>

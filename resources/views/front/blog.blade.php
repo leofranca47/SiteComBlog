@@ -29,7 +29,7 @@
                                 <div class="blog-text">
                                     <h3><a href="{{ route('article', $post->uri) }}">{{ $post->title }}</a></h3>
                                     <span class="posted_on">{{ $post->created_at }}</span>
-                                    <span class="comment"><a href="{{ route('article', $post->uri) }}">21<i class="icon-speech-bubble"></i></a></span>
+                                    {{-- <span class="comment"><a href="{{ route('article', $post->uri) }}">21<i class="icon-speech-bubble"></i></a></span> --}}
                                     <p>{{ $post->subtitle }}</p>
                                     <a href="{{ route('article', $post->uri) }}" class="btn btn-primary">Leia mais</a>
                                 </div>
